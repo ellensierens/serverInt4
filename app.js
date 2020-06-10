@@ -37,6 +37,7 @@ io.on("connection", function (socket) {
 
   socket.on("stop", data => {
     motors.forward(data);
+    servo.to(90);
   })
 
   socket.on("carControls", data => {
@@ -47,10 +48,10 @@ io.on("connection", function (socket) {
     servo.to(scaledX);
     // console.log("right");
 
-    if(data === "stop"){
-      motors.forward(0);
-      servo.to(90);
-    }
+    // if(data === "stop"){
+    //   motors.forward(0);
+    //   servo.to(90);
+    // }
 
     if(data.y < 0) {
       // console.log(`value: ${data.y}`);
