@@ -43,7 +43,7 @@ io.on("connection", function (socket) {
   socket.on("carControls", data => {
     console.log(`value: ${data.x}`);
     const scaledX = scale(data.x, -50, 50, 78, 102);
-    console.log(scaled);
+    console.log(scaledX);
 
     servo.to(scaledX);
     // console.log("right");
