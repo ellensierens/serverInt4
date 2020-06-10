@@ -6,7 +6,7 @@ let servo;
 let motors
 const invertPWM = true;
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8081;
 const index = require("./routes/index");
 
 const app = express();
