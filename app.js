@@ -44,9 +44,9 @@ io.on("connection", function (socket) {
     console.log(`value: ${data.x}`);
 
     if (data.x > 25) {
-      servo.to(78);
-    } else if (data.x < -25) {
       servo.to(102);
+    } else if (data.x < -25) {
+      servo.to(78);
     } else {
       const scaledX = scale(data.x, -25, 25, 78, 102);
       console.log(scaledX);
