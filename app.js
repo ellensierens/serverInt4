@@ -49,6 +49,7 @@ io.on("connection", function (socket) {
 
     if(data === "stop"){
       motors.forward(0);
+      servo.to(90);
     }
 
     if(data.y < 0) {
