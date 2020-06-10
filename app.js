@@ -41,9 +41,9 @@ io.on("connection", function (socket) {
   })
 
   socket.on("carControls", data => {
-    // console.log(`value: ${data.x}`);
+    console.log(`value: ${data.x}`);
     const scaledX = scale(data.x, -50, 50, 78, 102);
-    // console.log(scaled);
+    console.log(scaled);
 
     servo.to(scaledX);
     // console.log("right");
@@ -53,17 +53,17 @@ io.on("connection", function (socket) {
     }
 
     if(data.y < 0) {
-      console.log(`value: ${data.y}`);
+      // console.log(`value: ${data.y}`);
       const scaledY = scale(data.y, -50, 0, 255, 0);
       motors.forward(scaledY);
-      console.log(scaledY);
+      // console.log(scaledY);
     }
 
     if(data.y > 0) {
-      console.log(`value: ${data.y}`);
+      // console.log(`value: ${data.y}`);
       const scaledY = scale(data.y, 0, 50, 0, 255);
       motors.reverse(scaledY);
-      console.log(scaledY);
+      // console.log(scaledY);
     }
   });
 });
