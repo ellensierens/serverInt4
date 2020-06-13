@@ -40,6 +40,11 @@ io.on("connection", function (socket) {
     io.sockets.emit("stop", data);
   });
 
+  socket.on("coords", (data) => {
+    console.log("coords");
+    io.sockets.emit("coords", data);
+  });
+
   socket.on("carControls", (data) => {
     io.sockets.emit("carControls", data);
 
