@@ -4,6 +4,7 @@ const socketIo = require("socket.io");
 // const { Board, Servo, Motors } = require("johnny-five");
 // let servo;
 // let motors;
+let currentCoords;
 const invertPWM = true;
 
 const port = process.env.PORT || 8081;
@@ -42,56 +43,58 @@ io.on("connection", function (socket) {
 
   socket.on("coords", (data) => {
     console.log("coords");
-      io.sockets.emit("coordsServer", data)
+    // io.sockets.emit("coordsServer", data)
     // io.sockets.emit("coords", data);
+    currentCoords = data;
   });
 
-  socket.on('getCoords', (fn) => {
-    fn("ik stuur iets terug");
-  });
+  socket.on("getCoords", (fn) => {
+    if(currentCoords){
+      fn(currentCoords);
+    }else{
+      fn("geen current coords");
+    }
 
-  socket.on("getCoords", (data) => {
-    
-  })
+  });
 
   socket.on("carControls", (data) => {
     io.sockets.emit("carControls", data);
 
-  //   if (data.x > 25) {
-  //     servo.to(102);
-  //   } else if (data.x < -25) {
-  //     servo.to(78);
-  //   } else {
-  //     const scaledX = scale(data.x, -25, 25, 78, 102);
-  //     console.log(scaledX);
-  //     servo.to(scaledX);
-  //   }
+    //   if (data.x > 25) {
+    //     servo.to(102);
+    //   } else if (data.x < -25) {
+    //     servo.to(78);
+    //   } else {
+    //     const scaledX = scale(data.x, -25, 25, 78, 102);
+    //     console.log(scaledX);
+    //     servo.to(scaledX);
+    //   }
 
-  //   if (data.y < 0) {
-  //     if (data.x < -25) {
-  //       motors.forward(255);
-  //     } else {
-  //       // console.log(`value: ${data.y}`);
-  //       const scaledY = scale(data.y, -25, 0, 255, 0);
-  //       motors.forward(scaledY);
-  //       // console.log(scaledY);
-  //     }
-  //   }
+    //   if (data.y < 0) {
+    //     if (data.x < -25) {
+    //       motors.forward(255);
+    //     } else {
+    //       // console.log(`value: ${data.y}`);
+    //       const scaledY = scale(data.y, -25, 0, 255, 0);
+    //       motors.forward(scaledY);
+    //       // console.log(scaledY);
+    //     }
+    //   }
 
-  //   if (data.y > 0) {
-  //     if (data.x > 25) {
-  //       motors.reverse(255);
-  //     } else {
-  //       // console.log(`value: ${data.y}`);
-  //       const scaledY = scale(data.y, 0, 25, 0, 255);
-  //       motors.reverse(scaledY);
-  //       // console.log(scaledY);
-  //     }
-  //     // console.log(`value: ${data.y}`);
-  //     const scaledY = scale(data.y, 0, 50, 0, 255);
-  //     motors.reverse(scaledY);
-  //     // console.log(scaledY);
-  //   }
+    //   if (data.y > 0) {
+    //     if (data.x > 25) {
+    //       motors.reverse(255);
+    //     } else {
+    //       // console.log(`value: ${data.y}`);
+    //       const scaledY = scale(data.y, 0, 25, 0, 255);
+    //       motors.reverse(scaledY);
+    //       // console.log(scaledY);
+    //     }
+    //     // console.log(`value: ${data.y}`);
+    //     const scaledY = scale(data.y, 0, 50, 0, 255);
+    //     motors.reverse(scaledY);
+    //     // console.log(scaledY);
+    //   }
   });
 });
 
