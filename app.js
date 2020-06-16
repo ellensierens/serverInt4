@@ -1,9 +1,9 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
-const { Board, Servo, Motors } = require("johnny-five");
-let servo;
-let motors;
+// const { Board, Servo, Motors } = require("johnny-five");
+// let servo;
+// let motors;
 const invertPWM = true;
 
 const port = process.env.PORT || 8081;
@@ -42,7 +42,11 @@ io.on("connection", function (socket) {
 
   socket.on("coords", (data) => {
     console.log("coords");
-    io.sockets.emit("coords", data);
+
+    setInterval(() => {
+      io.sockets.emit("coords", data)
+    }, 3000);
+    // io.sockets.emit("coords", data);
   });
 
   socket.on("carControls", (data) => {
