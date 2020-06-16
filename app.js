@@ -42,10 +42,7 @@ io.on("connection", function (socket) {
 
   socket.on("coords", (data) => {
     console.log("coords");
-
-    setInterval(() => {
-      io.sockets.emit("coords", data)
-    }, 3000);
+      io.sockets.emit("coordsServer", data)
     // io.sockets.emit("coords", data);
   });
 
