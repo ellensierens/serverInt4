@@ -63,6 +63,9 @@ io.on("connection", function (socket) {
   });
 
   socket.on("carControls", (data) => {
+    console.log("car controls server");
+    console.log(data);
+    
     io.sockets.emit("carControls", data);
 
     //   if (data.x > 25) {
