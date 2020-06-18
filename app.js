@@ -49,17 +49,16 @@ io.on("connection", function (socket) {
   });
 
   socket.on("getCoords", (fn) => {
-    if(currentCoords){
+    if (currentCoords) {
       fn(currentCoords);
-    }else{
+    } else {
       fn("geen current coords");
     }
-
   });
 
-  // socket.on("cameraControls", (data) => {
-  //   io.socket.emit("cameraControls", data)
-  // })
+  socket.on("cameraControls", (data) => {
+    io.sockets.emit("cameraControls", data);
+  });
 
   socket.on("carControls", (data) => {
     io.sockets.emit("carControls", data);
