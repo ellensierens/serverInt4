@@ -57,6 +57,8 @@ io.on("connection", function (socket) {
   });
 
   socket.on("cameraControls", (data) => {
+    console.log("camera controls server");
+    console.log(data);
     io.sockets.emit("cameraControls", data);
   });
 
