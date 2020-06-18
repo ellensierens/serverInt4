@@ -57,6 +57,10 @@ io.on("connection", function (socket) {
 
   });
 
+  socket.on("cameraControls", (data) => {
+    io.socket.emit("cameraControls", data)
+  })
+
   socket.on("carControls", (data) => {
     io.sockets.emit("carControls", data);
 
