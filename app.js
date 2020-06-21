@@ -35,14 +35,6 @@ const io = socketIo(server); // < Interesting!
 // });
 
 io.on("connection", function (socket) {
-  console.log("connected");
-  if ((id === undefined)) {
-    id = socket.id;
-  }else {
-    console.log('user already connected');
-  }
-  console.log(socket.id)
-
   socket.on("stop", (data) => {
     console.log("stop");
     io.sockets.emit("stop", data);
@@ -67,25 +59,37 @@ io.on("connection", function (socket) {
     console.log("camera controls server");
     console.log(data);
     // if(id === socket.id) {
-      io.sockets.emit("cameraControls", data);
+    io.sockets.emit("cameraControls", data);
     // }
-
   });
 
   socket.on("controllerConnected", () => {
+    // console.log("connected");
+    if (id === undefined || id === socket.id) {
+      id = socket.id;
+      console.log(`new user: ${id}`);
+      io.sockets.emit("connected", true);
+    } else {
+      console.log("user already connected");
+      io.sockets.emit("connected", false);
+    }
+    // console.log(socket.id)
+
     console.log("controller connected");
     io.sockets.emit("controllerConnected");
   });
 
   socket.on("carControls", (data) => {
-
-    console.log("car controls server");
-    console.log(data);
+    if (id === socket.id) {
+      console.log("car controls server");
+      console.log(`original user: ${id}`);
+      console.log(`sending user: ${socket.id}`);
+      console.log(data);
+    }
 
     // if(id === socket.id ) {
-      io.sockets.emit("carControls", data);
+    io.sockets.emit("carControls", data);
     // }
-
 
     //   if (data.x > 25) {
     //     servo.to(102);
@@ -122,6 +126,13 @@ io.on("connection", function (socket) {
     //     motors.reverse(scaledY);
     //     // console.log(scaledY);
     //   }
+  });
+
+  socket.on("disconnect", () => {
+    if (id === socket.id) {
+      id = undefined;
+      console.log(`disconnected controller: ${socket.id}`)
+    }
   });
 });
 
