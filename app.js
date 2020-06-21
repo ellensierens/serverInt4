@@ -5,6 +5,7 @@ const socketIo = require("socket.io");
 // let servo;
 // let motors;
 let currentCoords;
+let id = undefined;
 const invertPWM = true;
 
 const port = process.env.PORT || 8081;
@@ -35,6 +36,12 @@ const io = socketIo(server); // < Interesting!
 
 io.on("connection", function (socket) {
   console.log("connected");
+  if ((id === undefined)) {
+    id = socket.id;
+  }else {
+    console.log('user already connected');
+  }
+  console.log(socket.id)
 
   socket.on("stop", (data) => {
     console.log("stop");
@@ -59,19 +66,26 @@ io.on("connection", function (socket) {
   socket.on("cameraControls", (data) => {
     console.log("camera controls server");
     console.log(data);
-    io.sockets.emit("cameraControls", data);
+    // if(id === socket.id) {
+      io.sockets.emit("cameraControls", data);
+    // }
+
   });
 
   socket.on("controllerConnected", () => {
-    console.log("controller connected")
+    console.log("controller connected");
     io.sockets.emit("controllerConnected");
-  }) 
+  });
 
   socket.on("carControls", (data) => {
+
     console.log("car controls server");
     console.log(data);
 
-    io.sockets.emit("carControls", data);
+    // if(id === socket.id ) {
+      io.sockets.emit("carControls", data);
+    // }
+
 
     //   if (data.x > 25) {
     //     servo.to(102);
