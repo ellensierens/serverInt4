@@ -68,10 +68,10 @@ io.on("connection", function (socket) {
     if (id === undefined || id === socket.id) {
       id = socket.id;
       console.log(`new user: ${id}`);
-      io.sockets.emit("connected", true);
+      socket.emit("connected", true);
     } else {
       console.log("user already connected");
-      io.sockets.emit("connected", false);
+      socket.emit("connected", false);
     }
     // console.log(socket.id)
 
