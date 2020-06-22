@@ -69,7 +69,7 @@ io.on("connection", function (socket) {
     } else {
       fn(false);
     }
-  })
+  });
 
   socket.on("controllerConnected", () => {
     // console.log("connected");
@@ -84,15 +84,15 @@ io.on("connection", function (socket) {
     // console.log(socket.id)
 
     console.log("controller connected");
-    io.sockets.emit("controllerStatus", true)
+    io.sockets.emit("controllerStatus", true);
   });
 
   socket.on("carControls", (data) => {
     // if (id === socket.id) {
-      console.log("car controls server");
-      console.log(`original user: ${id}`);
-      console.log(`sending user: ${socket.id}`);
-      console.log(data);
+    console.log("car controls server");
+    console.log(`original user: ${id}`);
+    console.log(`sending user: ${socket.id}`);
+    console.log(data);
     // }
 
     // if(id === socket.id ) {
@@ -139,23 +139,22 @@ io.on("connection", function (socket) {
   socket.on("disconnect", () => {
     if (id === socket.id) {
       id = undefined;
-      console.log(`disconnected controller: ${socket.id}`)
-      io.sockets.emit("controllerStatus", false)
+      console.log(`disconnected controller: ${socket.id}`);
+      io.sockets.emit("controllerStatus", false);
     }
   });
 
   socket.on("blurred", () => {
-    console.log("blurred")
+    console.log("blurred");
     // if (id === socket.id) {
     // console.log("blurred maar dan in de if")
-      id = undefined;
+    id = undefined;
+    io.sockets.emit("controllerStatus", false);
     //   console.log(`disconnected controller: ${socket.id}`)
-      // io.sockets.emit("controllerStatus", false)
+    // io.sockets.emit("controllerStatus", false)
     // }
-})
+  });
 });
-
-
 
 // const scale = (num, in_min, in_max, out_min, out_max) => {
 //   return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
