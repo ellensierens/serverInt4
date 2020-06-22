@@ -138,7 +138,7 @@ io.on("connection", function (socket) {
 
   socket.on("disconnect", () => {
     if (id === socket.id) {
-      // id = undefined;
+      id = undefined;
       console.log(`disconnected controller: ${socket.id}`)
       io.sockets.emit("controllerStatus", false)
     }
