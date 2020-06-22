@@ -148,9 +148,9 @@ io.on("connection", function (socket) {
     console.log("blurred")
     // if (id === socket.id) {
     // console.log("blurred maar dan in de if")
-    //   id = undefined;
+      id = undefined;
     //   console.log(`disconnected controller: ${socket.id}`)
-    //   io.sockets.emit("controllerStatus", false)
+      // io.sockets.emit("controllerStatus", false)
     // }
 })
 });
