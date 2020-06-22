@@ -63,6 +63,14 @@ io.on("connection", function (socket) {
     // }
   });
 
+  socket.on("isControllerConnected", (fn) => {
+    if (id) {
+      fn(true);
+    } else {
+      fn(false);
+    }
+  })
+
   socket.on("controllerConnected", () => {
     // console.log("connected");
     if (id === undefined || id === socket.id) {
@@ -76,7 +84,7 @@ io.on("connection", function (socket) {
     // console.log(socket.id)
 
     console.log("controller connected");
-    io.sockets.emit("controllerConnected");
+    io.sockets.emit("controllerStatus", true)
   });
 
   socket.on("carControls", (data) => {
@@ -132,6 +140,7 @@ io.on("connection", function (socket) {
     if (id === socket.id) {
       id = undefined;
       console.log(`disconnected controller: ${socket.id}`)
+      io.sockets.emit("controllerStatus", false)
     }
   });
 });
