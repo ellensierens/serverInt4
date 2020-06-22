@@ -88,12 +88,12 @@ io.on("connection", function (socket) {
   });
 
   socket.on("carControls", (data) => {
-    if (id === socket.id) {
+    // if (id === socket.id) {
       console.log("car controls server");
       console.log(`original user: ${id}`);
       console.log(`sending user: ${socket.id}`);
       console.log(data);
-    }
+    // }
 
     // if(id === socket.id ) {
     io.sockets.emit("carControls", data);
@@ -143,7 +143,19 @@ io.on("connection", function (socket) {
       io.sockets.emit("controllerStatus", false)
     }
   });
+
+  socket.on("blurred", () => {
+    console.log("blurred")
+    // if (id === socket.id) {
+    // console.log("blurred maar dan in de if")
+    //   id = undefined;
+    //   console.log(`disconnected controller: ${socket.id}`)
+    //   io.sockets.emit("controllerStatus", false)
+    // }
+})
 });
+
+
 
 // const scale = (num, in_min, in_max, out_min, out_max) => {
 //   return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
